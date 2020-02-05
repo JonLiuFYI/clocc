@@ -8,6 +8,7 @@ Copyright © 2020 Jon Liu
 ## Requirements
 * Python 3.7
 * discord.py 1.3.1
+* python-dotenv 0.10.5
 
 ## License
 clocc source code is licensed under GNU GPLv3+. See LICENSE.
