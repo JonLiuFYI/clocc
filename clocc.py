@@ -1,4 +1,5 @@
 import os
+import json
 
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -17,6 +18,9 @@ clocc = commands.Bot(command_prefix=PREFIX,
 @clocc.event
 async def on_ready():
     print(f'{clocc.user.name} connected to Discord')
+    with open('usertimezones.json', 'r') as f:
+        global user_tzs
+        user_tzs = json.load(f)
 
 
 @clocc.command(name='time', help='Convert the given time')
@@ -26,8 +30,10 @@ async def convert_time(ctx, t: str, *tzs):
 
 @clocc.command(name='mytimezone', help='Set your time zone')
 async def set_tz(ctx, t: str):
-    user_tzs[ctx.author] = t
+    user_tzs[str(ctx.author.id)] = t
     await ctx.send(f'{ctx.author}, your time zone has been set to **{t}**.')
+    with open('usertimezones.json', 'w') as f:
+        json.dump(user_tzs, f)
 
 
 @clocc.command(name='target', help='Set what time zones this bot will convert to by default')
