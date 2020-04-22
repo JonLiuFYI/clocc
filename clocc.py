@@ -8,6 +8,8 @@ token = os.getenv('DISCORD_TOKEN')
 
 PREFIX = '⌚'
 
+user_tzs = {}
+
 clocc = commands.Bot(command_prefix=PREFIX,
                      description='Convert your time to other time zones')
 
@@ -24,7 +26,8 @@ async def convert_time(ctx, t: str, *tzs):
 
 @clocc.command(name='mytimezone', help='Set your time zone')
 async def set_tz(ctx, t: str):
-    await ctx.send('Not implemented yet!')
+    user_tzs[ctx.author] = t
+    await ctx.send(f'{ctx.author}, your time zone has been set to **{t}**.')
 
 
 @clocc.command(name='target', help='Set what time zones this bot will convert to by default')
